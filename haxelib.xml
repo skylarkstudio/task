@@ -1,0 +1,7 @@
+<project name="task" url="http://www.joshuagranick.com" license="BSD">
+    <user name="elyon"/>
+    <tag v="flash"/>
+    <tag v="cpp"/>
+    <description>Use the Task and TaskList API to simplify asynchronous tasks</description>
+    <version name="1.01">Added documentation</version>
+</project>
