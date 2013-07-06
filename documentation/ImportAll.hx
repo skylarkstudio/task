@@ -1,5 +1,5 @@
 package;
 
-import com.eclecticdesignstudio.task.Task;
-import com.eclecticdesignstudio.task.TaskList;
+import task.Task;
+import task.TaskList;
 import com.eclecticdesignstudio.utils.MessageLog;
