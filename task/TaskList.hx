@@ -1,10 +1,4 @@
-﻿/**
-* @author Joshua Granick
-* @version 0.1
-*/
-
-
-package com.eclecticdesignstudio.task;
+﻿package task;
 
 
 import com.eclecticdesignstudio.utils.MessageLog;
@@ -14,13 +8,14 @@ import flash.events.Event;
 class TaskList {
 	
 	
-	private var completedTasks:Hash <Task>;
+	private var completedTasks:Map <String, Task>;
 	private var pendingTasks:Array <Task>;
 	
 	
 	public function new () {
 		
-		initialize ();
+		completedTasks = new Map <String, Task> ();
+		pendingTasks = new Array <Task> ();
 		
 	}
 	
@@ -49,11 +44,17 @@ class TaskList {
 		
 		var task:Task = qualifyReference (reference);
 		
+		if (task == null) {
+			
+			task = new Task (reference);
+			
+		}
+		
 		if (task != null) {
 			
 			MessageLog.debug (this, "Completed task \"" + task.id + "\"");
 			
-			completedTasks.set (task.id, task);
+			completedTasks.set (Std.string (task.id), task);
 			pendingTasks.remove (task);
 			
 			if (task.completeHandler != null) {
@@ -108,7 +109,7 @@ class TaskList {
 	 * @param	id		An ID to search for
 	 * @return		A task object or null if the task was not found
 	 */
-	private function getTaskByID (id:String):Task {
+	private function getTaskByID (id:Dynamic):Task {
 		
 		var task:Task;
 		
@@ -122,9 +123,9 @@ class TaskList {
 			
 		}
 		
-		if (completedTasks.exists (id)) {
+		if (completedTasks.exists (Std.string (id))) {
 			
-			return completedTasks.get (id);
+			return completedTasks.get (Std.string (id));
 			
 		}
 		
@@ -163,17 +164,6 @@ class TaskList {
 	
 	
 	/**
-	 * Initialize class values
-	 */
-	private function initialize ():Void {
-		
-		completedTasks = new Hash <Task> ();
-		pendingTasks = new Array <Task> ();
-		
-	}
-	
-	
-	/**
 	 * Check to see if a task object or task ID has been completed
 	 * @param	reference		A task object or task ID to check
 	 * @return		A boolean value representing whether the task has been completed
@@ -182,7 +172,7 @@ class TaskList {
 		
 		var task:Task = cast (qualifyReference (reference), Task);
 		
-		if (task != null && completedTasks.exists (task.id)) {
+		if (task != null && completedTasks.exists (Std.string (task.id))) {
 			return true;
 		} else {
 			return false;
@@ -206,9 +196,9 @@ class TaskList {
 					
 					for (reference in task.prerequisiteTasks) {
 						
-						var prerequisiteTask:Task = qualifyReference (reference);
+						var prerequisiteTask = qualifyReference (reference);
 						
-						if (!completedTasks.exists (prerequisiteTask.id)) {
+						if (prerequisiteTask == null || !completedTasks.exists (Std.string (prerequisiteTask.id))) {
 							
 							taskReady = false;
 							
@@ -241,9 +231,13 @@ class TaskList {
 		var task:Task;
 		
 		if (Std.is (reference, Task)) {
+			
 			task = cast (reference, Task);
+			
 		} else {
-			task = getTaskByID (cast (reference, String));
+			
+			task = getTaskByID (reference);
+			
 		}
 		
 		return task;
@@ -280,7 +274,9 @@ class TaskList {
 			task.result = Reflect.callMethod (task.target, task.target, params);
 			
 			if (task.autoComplete && !handlingEvent) {
+				
 				completeTask (task);
+				
 			}
 			
 		}
@@ -294,16 +290,16 @@ class TaskList {
 
 
 class HandledEvent {
-
-
-public var handler:Dynamic;
-
-
-public function new (handler:Dynamic) {
 	
-	this.handler = handler;
 	
-}
-
-
+	public var handler:Dynamic;
+	
+	
+	public function new (handler:Dynamic) {
+		
+		this.handler = handler;
+		
+	}
+	
+	
 }

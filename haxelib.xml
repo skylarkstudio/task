@@ -1,7 +1,0 @@
-<project name="task" url="http://www.joshuagranick.com" license="MIT">
-    <user name="elyon"/>
-    <tag v="flash"/>
-    <tag v="cpp"/>
-    <description>Use the Task and TaskList API to simplify asynchronous tasks</description>
-    <version name="1.02">Fixed license</version>
-</project>

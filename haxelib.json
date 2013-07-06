@@ -1,0 +1,11 @@
+{
+  "name": "task",
+  "url": "http://github.com/jgranick/task",
+  "license": "MIT",
+  "tags": [],
+  "description": "Use the Task and TaskList API to simplify asynchronous tasks",
+  "version": "1.0.3",
+  "releasenote": "Update for Haxe 3",
+  "contributors": [ "singmajesty" ],
+  "dependencies": {}
+}
