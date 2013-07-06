@@ -259,8 +259,8 @@ class TaskList {
 			
 			task.run = true;
 			
-			var params:Array <Dynamic> = task.params;
-			var handlingEvent:Bool = false;
+			var params = task.params;
+			var handlingEvent = false;
 			
 			if (params != null) {
 				for (i in 0...params.length) {
@@ -270,6 +270,8 @@ class TaskList {
 					}
 				}
 			}
+			
+			if (params == null) params = [];
 			
 			task.result = Reflect.callMethod (task.target, task.target, params);
 			
