@@ -79,7 +79,7 @@ class TaskList {
 		
 		var completeReference:Dynamic = completeTask;
 		
-		var eventHandler:Dynamic = function (event:Event = null):Void {
+		var eventHandler:Dynamic = function (event:Dynamic = null):Void {
 			
 			if (event != null) {
 				
@@ -156,7 +156,7 @@ class TaskList {
 	 * 
 	 * That will properly cause the TaskList to wait before flagging the task as complete, until after the complete handler has been called.
 	 */
-	public static function handleEvent (handler:Dynamic):HandledEvent {
+	public static function handleEvent (handler:Dynamic = null):HandledEvent {
 		
 		return new HandledEvent (handler);
 		
@@ -297,9 +297,17 @@ class HandledEvent {
 	public var handler:Dynamic;
 	
 	
-	public function new (handler:Dynamic) {
+	public function new (handler:Dynamic = null) {
 		
-		this.handler = handler;
+		if (handler == null) {
+			
+			this.handler = function (_) {};
+			
+		} else {
+			
+			this.handler = handler;
+			
+		}
 		
 	}
 	
