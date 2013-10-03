@@ -273,6 +273,18 @@ class TaskList {
 			
 			if (params == null) params = [];
 			
+			#if neko
+			
+			var diff = untyped ($nargs)(task.target) - params.length;
+			
+			for (i in 0...diff) {
+				
+				params.push (null);
+				
+			}
+			
+			#end
+			
 			task.result = Reflect.callMethod (task.target, task.target, params);
 			
 			if (task.autoComplete && !handlingEvent) {

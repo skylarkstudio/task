@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": [],
   "description": "Use the Task and TaskList API to simplify asynchronous tasks",
-  "version": "1.0.5",
-  "releasenote": "Added static TaskManager",
+  "version": "1.0.6",
+  "releasenote": "Patch for Neko Reflect.callMethod",
   "contributors": [ "singmajesty" ],
   "dependencies": {}
 }
