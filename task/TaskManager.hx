@@ -28,7 +28,7 @@ class TaskManager {
 	 * Marks a task as complete
 	 * @param	reference		A task object or ID to mark as complete
 	 */
-	public function completeTask (reference:Dynamic):Void {
+	public static function completeTask (reference:Dynamic):Void {
 		
 		list.completeTask (reference);
 		
@@ -67,7 +67,7 @@ class TaskManager {
 	 * @param	reference		A task object or task ID to check
 	 * @return		A boolean value representing whether the task has been completed
 	 */
-	public function isCompleted (reference:Dynamic):Bool {
+	public static function isCompleted (reference:Dynamic):Bool {
 		
 		return list.isCompleted (reference);
 		
